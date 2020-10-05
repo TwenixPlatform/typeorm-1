@@ -1,5 +1,5 @@
 {
-  "name": "@nestjs/typeorm",
+  "name": "@twenix/nestjs-typeorm",
   "version": "7.1.4",
   "description": "Nest - modern, fast, powerful node.js web framework (@typeorm)",
   "author": "Kamil Mysliwiec",
@@ -46,7 +46,7 @@
     "rxjs-compat": "6.6.3",
     "supertest": "4.0.2",
     "ts-jest": "26.3.0",
-    "typeorm": "0.2.26",
+    "@twenix/typeorm": "0.2.26",
     "typescript": "4.0.2"
   },
   "dependencies": {
@@ -57,7 +57,7 @@
     "@nestjs/core": "^6.7.0 || ^7.0.0",
     "reflect-metadata": "^0.1.12",
     "rxjs": "^6.0.0",
-    "typeorm": "^0.2.7"
+    "@twenix/typeorm": "^0.2.26"
   },
   "lint-staged": {
     "*.ts": [

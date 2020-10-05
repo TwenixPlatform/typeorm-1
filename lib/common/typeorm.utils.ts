@@ -8,7 +8,7 @@ import {
   EntityManager,
   EntitySchema,
   Repository,
-} from 'typeorm';
+} from '@twenix/typeorm';
 import { isNullOrUndefined } from 'util';
 import { v4 as uuid } from 'uuid';
 import { CircularDependencyException } from '../exceptions/circular-dependency.exception';
@@ -140,8 +140,9 @@ export function handleRetry(
               : '';
 
             logger.error(
-              `Unable to connect to the database${connectionInfo}.${verboseMessage} Retrying (${errorCount +
-                1})...`,
+              `Unable to connect to the database${connectionInfo}.${verboseMessage} Retrying (${
+                errorCount + 1
+              })...`,
               error.stack,
             );
             if (errorCount + 1 >= retryAttempts) {

@@ -1,5 +1,5 @@
 import { DynamicModule, Module } from '@nestjs/common';
-import { Connection, ConnectionOptions } from 'typeorm';
+import { Connection, ConnectionOptions } from '@twenix/typeorm';
 import { EntitiesMetadataStorage } from './entities-metadata.storage';
 import { getCustomRepositoryEntity } from './helpers/get-custom-repository-entity';
 import { EntityClassOrSchema } from './interfaces/entity-class-or-schema.type';

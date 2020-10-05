@@ -2,7 +2,7 @@ import {
   AbstractRepository,
   getMetadataArgsStorage,
   Repository,
-} from 'typeorm';
+} from '@twenix/typeorm';
 import { EntityClassOrSchema } from '../interfaces/entity-class-or-schema.type';
 
 export function getCustomRepositoryEntity(

@@ -14,7 +14,7 @@ import {
   ConnectionOptions,
   createConnection,
   getConnectionManager,
-} from 'typeorm';
+} from '@twenix/typeorm';
 import {
   generateString,
   getConnectionName,

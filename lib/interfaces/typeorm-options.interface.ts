@@ -1,6 +1,6 @@
 import { Type } from '@nestjs/common';
 import { ModuleMetadata } from '@nestjs/common/interfaces';
-import { ConnectionOptions } from 'typeorm';
+import { ConnectionOptions } from '@twenix/typeorm';
 
 export type TypeOrmModuleOptions = {
   /**
