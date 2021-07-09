@@ -1,14 +1,13 @@
 import {
   DynamicModule,
   Global,
-  Inject,
-  Module,
+  Inject, Logger, Module,
   OnApplicationShutdown,
   Provider,
-  Type,
+  Type
 } from '@nestjs/common';
 import { ModuleRef } from '@nestjs/core';
-import { defer } from 'rxjs';
+import { defer, lastValueFrom } from 'rxjs';
 import {
   Connection,
   ConnectionOptions,
@@ -20,19 +19,21 @@ import {
   getConnectionName,
   getConnectionToken,
   getEntityManagerToken,
-  handleRetry,
+  handleRetry
 } from './common/typeorm.utils';
 import { EntitiesMetadataStorage } from './entities-metadata.storage';
 import {
   TypeOrmModuleAsyncOptions,
   TypeOrmModuleOptions,
-  TypeOrmOptionsFactory,
+  TypeOrmOptionsFactory
 } from './interfaces/typeorm-options.interface';
 import { TYPEORM_MODULE_ID, TYPEORM_MODULE_OPTIONS } from './typeorm.constants';
 
 @Global()
 @Module({})
 export class TypeOrmCoreModule implements OnApplicationShutdown {
+  private readonly logger = new Logger('TypeOrmModule');
+
   constructor(
     @Inject(TYPEORM_MODULE_OPTIONS)
     private readonly options: TypeOrmModuleOptions,
@@ -106,7 +107,11 @@ export class TypeOrmCoreModule implements OnApplicationShutdown {
     const connection = this.moduleRef.get<Connection>(
       getConnectionToken(this.options as ConnectionOptions) as Type<Connection>,
     );
-    connection && (await connection.close());
+    try {
+      connection && (await connection.close());
+    } catch (e) {
+      this.logger.error(e?.message);
+    }
   }
 
   private static createAsyncProviders(
@@ -174,7 +179,7 @@ export class TypeOrmCoreModule implements OnApplicationShutdown {
     } catch {}
 
     const connectionToken = getConnectionName(options as ConnectionOptions);
-    return await defer(() => {
+    return lastValueFrom(defer(() => {
       if (!options.type) {
         return createConnection();
       }
@@ -205,7 +210,6 @@ export class TypeOrmCoreModule implements OnApplicationShutdown {
           options.verboseRetryLog,
           options.toRetry,
         ),
-      )
-      .toPromise();
+      ))
   }
 }
